@@ -17,4 +17,22 @@ with open("day04/data/csv03.csv", "r", encoding="utf-8") as f2 :
         # print(i)
         print(i["name"], i["age"], i["addr"])
 
-# 성년 미성년 추가하기(숙졔)
+# 성인 , 미성년자 추가하기
+with open("day04/data/csv03.csv" , 'r' , encoding='utf-8' ) as f3 :
+    rd = csv.DictReader(f3)
+    
+    # 수정을 위해서 리스트에 넣어서 처리하자   
+    lines = []
+
+    for i in rd :
+        if int(i['age']) <= 18 :
+            i['adult'] = '미성년자'
+        else :
+            i['adult'] = '성인'
+        lines.append(i)
+
+with open("day04/data/csv04.csv", 'w' , encoding='utf-8' , newline='') as f4 :
+    f_name = ['name', 'age' , 'addr' ,'adult']
+    wr = csv.DictWriter(f4, fieldnames=f_name)
+    wr.writeheader()
+    wr.writerows(lines)
